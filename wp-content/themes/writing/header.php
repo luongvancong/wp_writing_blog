@@ -11,25 +11,6 @@
 
         <?php wp_head(); ?>
 
-        <!-- <link rel='stylesheet' id='contact-form-7-css'  href='https://awcdn1.ahmad.works/writing/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.1.2' type='text/css' media='all' />
-        <link rel='stylesheet' id='asalah-podkova-css'  href='https://fonts.googleapis.com/css?family=Podkova%3A700&#038;ver=4.4.5' type='text/css' media='all' />
-        <link rel='stylesheet' id='asalah-rokkit-css'  href='https://fonts.googleapis.com/css?family=Rokkitt%3A400%2C700&#038;ver=4.4.5' type='text/css' media='all' />
-        <link rel='stylesheet' id='asalah-lora-css'  href='https://fonts.googleapis.com/css?family=Lora%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;ver=4.4.5' type='text/css' media='all' />
-        <link rel='stylesheet' id='genericons-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/genericons/genericons.css?ver=3.2' type='text/css' media='all' />
-        <link rel='stylesheet' id='bootstrap-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/framework/bootstrap/css/bootstrap.css?ver=1' type='text/css' media='all' />
-        <link rel='stylesheet' id='fontawesome-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/framework/font-awesome/css/font-awesome.min.css?ver=1' type='text/css' media='all' />
-        <link rel='stylesheet' id='asalah-plugins-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/pluginstyle.css?ver=1' type='text/css' media='all' />
-        <link rel='stylesheet' id='asalah-style-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/style.css?ver=3.0213' type='text/css' media='all' /> -->
-        <!--[if lt IE 9]>
-        <link rel='stylesheet' id='asalah-ie-css'  href='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/css/ie.css?ver=1' type='text/css' media='all' />
-        <![endif]-->
-        <!-- <link rel='stylesheet' id='instag-slider-css'  href='https://awcdn1.ahmad.works/writing/wp-content/plugins/instagram-slider-widget/assets/css/instag-slider.css?ver=1.2.1' type='text/css' media='all' />
-        <script type='text/javascript' src='https://awcdn1.ahmad.works/writing/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
-        <script type='text/javascript' src='https://awcdn1.ahmad.works/writing/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
-        <script type='text/javascript' src='https://awcdn1.ahmad.works/writing/wp-content/themes/writing/js/modernizr.js?ver=1'></script>
-        <script type='text/javascript' src='https://apis.google.com/js/platform.js?ver=1'></script>
-        <script type='text/javascript' src='https://awcdn1.ahmad.works/writing/wp-content/plugins/instagram-slider-widget/assets/js/jquery.flexslider-min.js?ver=2.2'></script> -->
-
         <style type="text/css">@media screen and (min-width: 910px) {.container { width:910px; }}.top_menu_wrapper, .header_search > form.search .search_text, .sticky_header .top_menu_wrapper {}.skin_color, .skin_color_hover:hover, a, .user_info_button:hover, .header_social_icons a:hover, .blog_post_meta .blog_meta_item a:hover, .widget_container ul li a:hover, .asalah_post_gallery_nav_container ul.flex-direction-nav > li a:hover:before, .post_navigation_item:hover a.post_navigation_arrow, .comment_body p a:hover {color: #f47e00;}.skin_bg, .skin_bg_hover:hover, .blog_post_control_item a:hover, .widget_container.asalah-social-widget .widget_social_icon:hover, .tagcloud a:hover {background-color: #f47e00;}.skin_border, .blog_post_control_item a, .navigation.pagination .nav-links .page-numbers:hover, .navigation.pagination .nav-links .page-numbers.current, .navigation_links a:hover {border-color: #f47e00;}.skin_border_left {border-left-color: #f47e00;}.skin_border_right {border-right-color: #f47e00;}.skin_border_top {border-top-color: #f47e00;}progress[value]::-webkit-progress-value {background-color:#f47e00;}progress[value]::-moz-progress-bar {background-color:#f47e00;}.skin_border_bottom, .comment_body p a:hover {border-bottom-color: #f47e00;}</style>
     </head>
     <body <?php body_class(); ?>>
@@ -58,7 +39,23 @@
                             </div>
                             <div class="top_header_items_holder">
                                 <div class="main_menu pull-left">
-                                    <div class="main_nav">
+                                    <?php
+                                           /**
+                                            * Displays a navigation menu
+                                            * @param array $args Arguments
+                                            */
+                                            $args = array(
+                                                'theme_location' => 'main-nav',
+                                                'container' => 'div',
+                                                'container_class' => 'main_nav',
+                                                'container_id' => '',
+                                                'menu_class' => 'nav navbar-nav',
+                                                'menu_id' => ''
+                                            );
+
+                                            wp_nav_menu( $args );
+                                    ?>
+                                    <!-- <div class="main_nav">
                                         <ul id="menu-main" class="nav navbar-nav">
                                             <li id="menu-item-41" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home current-menu-ancestor menu-item-has-children menu-item-41 dropdown default_menu">
                                                 <a href="http://ahmad.works/writing/" data-hover="dropdown" class="dropdown-toggle">Home Examples</a>
@@ -109,7 +106,7 @@
                                             <li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135 default_menu"><a href="https://ahmad.works/writing/contact/">Contact Me</a></li>
                                             <li id="menu-item-121" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-121 default_menu"><a href="http://themeforest.net/item/writing-clean-minimal-blog-wordpress-theme/11547928?ref=ahmadworks&#038;license=regular&#038;open_purchase_for_item_id=11547928&#038;purchasable=source">Purchase!</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="header_icons pull-right text_right">
                                     <!-- start header social icons -->
