@@ -3,7 +3,7 @@
         <h3 class="screen-reader-text">Sliding Sidebar</h3>
         <div class="info_sidebar">
             <div id="search-2" class="widget_container widget_content widget widget_search clearfix">
-                <form role="search" class="search-form" method="get" action="https://ahmad.works/writing/">
+                <form role="search" class="search-form" method="get" action="<?php echo get_search_link(); ?>">
                     <label>
                     <span class="screen-reader-text">Search for:</span>
                     <input type="search" class="search-field" placeholder="Search ..." value="" name="s" title="Search for:">
@@ -14,9 +14,11 @@
             <div id="about-widget-4" class="widget_container widget_content widget about-widget clearfix">
                 <h4 class="widget_title title"><span class="page_header_title">About Me</span></h4>
                 <div class="asalah_about_me">
-                    <div class="author_image_wrapper default rounded"><img class="img-responsive" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Author.jpg" alt="About Me" /></div>
+                    <div class="author_image_wrapper default rounded">
+                        <img class="img-responsive" src="<?php echo get_avatar_url(1) ?>" alt="About Me" />
+                    </div>
                     <div class="author_text_wrapper">
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam.</p>
+                        <p><?php echo get_user_by(  'id', 1 )->description; ?></p>
                     </div>
                 </div>
             </div>
@@ -28,34 +30,32 @@
                 <h4 class="widget_title title"><span class="page_header_title">Recent Posts</span></h4>
                 <div class="asalah_post_list_widget">
                     <ul class="post_list">
-                        <li class="post_item clearfix">
-                            <div class="post_thumbnail_wrapper"><a href="https://ahmad.works/writing/restaurant-employer-read-clients-orders-on-his-ipad/" title="Restaurant Employer Read Clients Orders On His iPad"><img width="50" height="50" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Resturant-Employer-150x150.jpg" class="img-responsive wp-post-image" alt="Resturant-Employer" /></a></div>
-                            <div class="post_info_wrapper">
-                                <h5 class="title post_title"><a href="https://ahmad.works/writing/restaurant-employer-read-clients-orders-on-his-ipad/" title="Restaurant Employer Read Clients Orders On His iPad">Restaurant Employer Read Clients Orders On His iPad</a></h5>
-                                <span class="post_meta_item post_meta_time post_time">May 17, 2015</span>
-                            </div>
-                        </li>
-                        <li class="post_item clearfix">
-                            <div class="post_thumbnail_wrapper"><a href="https://ahmad.works/writing/amazing-classic-interior-design-with-perfect-lighting/" title="Amazing Classic Interior Design With Perfect Lighting"><img width="50" height="50" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Modern-Enterior-Design-150x150.jpg" class="img-responsive wp-post-image" alt="Modern-Enterior-Design" /></a></div>
-                            <div class="post_info_wrapper">
-                                <h5 class="title post_title"><a href="https://ahmad.works/writing/amazing-classic-interior-design-with-perfect-lighting/" title="Amazing Classic Interior Design With Perfect Lighting">Amazing Classic Interior Design With Perfect Lighting</a></h5>
-                                <span class="post_meta_item post_meta_time post_time">May 17, 2015</span>
-                            </div>
-                        </li>
-                        <li class="post_item clearfix">
-                            <div class="post_thumbnail_wrapper"><a href="https://ahmad.works/writing/english-breakfast-tea-with-tasty-donut-desserts/" title="English Breakfast Tea With Tasty Donut Desserts"><img width="50" height="50" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Desserts-150x150.jpg" class="img-responsive wp-post-image" alt="Desserts" /></a></div>
-                            <div class="post_info_wrapper">
-                                <h5 class="title post_title"><a href="https://ahmad.works/writing/english-breakfast-tea-with-tasty-donut-desserts/" title="English Breakfast Tea With Tasty Donut Desserts">English Breakfast Tea With Tasty Donut Desserts</a></h5>
-                                <span class="post_meta_item post_meta_time post_time">May 17, 2015</span>
-                            </div>
-                        </li>
-                        <li class="post_item clearfix">
-                            <div class="post_thumbnail_wrapper"><a href="https://ahmad.works/writing/two-smart-kids-reading-magazine-before-sleeping/" title="Two Smart Kids Reading Magazine Before Sleeping"><img width="50" height="50" src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/Brother-and-Sister-150x150.jpg" class="img-responsive wp-post-image" alt="Brother-and-Sister" /></a></div>
-                            <div class="post_info_wrapper">
-                                <h5 class="title post_title"><a href="https://ahmad.works/writing/two-smart-kids-reading-magazine-before-sleeping/" title="Two Smart Kids Reading Magazine Before Sleeping">Two Smart Kids Reading Magazine Before Sleeping</a></h5>
-                                <span class="post_meta_item post_meta_time post_time">May 17, 2015</span>
-                            </div>
-                        </li>
+                        <?php
+                            $recentPostQuery = new WP_Query([
+                                'order' => 'DESC',
+                                'orderby' => 'rand',
+                                'author' => 1,
+                                'post_status' => array('publish')
+                            ]);
+                        ?>
+
+                        <?php if($recentPostQuery->have_posts()) : ?>
+                            <?php while($recentPostQuery->have_posts()) : $recentPostQuery->the_post(); ?>
+                                <li class="post_item clearfix">
+                                    <div class="post_thumbnail_wrapper">
+                                        <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                            <?php the_post_thumbnail( array(50, 50), ['class' => 'img-responsive'] ); ?>
+                                        </a>
+                                    </div>
+                                    <div class="post_info_wrapper">
+                                        <h5 class="title post_title"><a href="<?php the_permalink() ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h5>
+                                        <span class="post_meta_item post_meta_time post_time"><?php echo date('d/m/Y', get_the_time('U')) ?></span>
+                                    </div>
+                                </li>
+                            <?php endwhile; ?>
+                            <?php wp_reset_postdata(); ?>
+                        <?php endif; ?>
+
                     </ul>
                 </div>
             </div>
